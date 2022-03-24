@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 import { LegendsModule } from './legends/legends.module';
+import { AuthModule } from './auth/auth.module';
+import { AwsModule } from './aws/aws.module';
 
 @Module({
   imports: [
@@ -10,7 +13,10 @@ import { LegendsModule } from './legends/legends.module';
         useUnifiedTopology: true, 
       },
     ),
-    LegendsModule
+    LegendsModule,
+    AuthModule,
+    AwsModule,
+    ConfigModule.forRoot()
   ],
   controllers: [],
   providers: [],

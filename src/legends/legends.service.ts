@@ -1,7 +1,8 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Legend } from './interfaces/legends/legend.interface';
+import { CreateLegendDto } from './dtos/create-legend.dto';
+import { Legend } from './interfaces/legend.interface';
 
 @Injectable()
 export class LegendsService {
@@ -12,10 +13,14 @@ export class LegendsService {
 
     private readonly logger = new Logger(LegendsService.name);
 
-    getHello(): string {
-      return 'Bora Nest.js';
+    async createLegend(createLegendDto: CreateLegendDto): Promise<Legend>{
+      try {
+        const legendCreated = new this.legendModel(createLegendDto);
+        return await legendCreated.save();
+      } catch (error) {
+        throw new NotFoundException(error.message);
+      }
     }
-  
   
     async listLegend(): Promise<Legend[]>{
       try {

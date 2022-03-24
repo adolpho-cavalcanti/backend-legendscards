@@ -1,24 +1,29 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { LegendsService } from './legends.service';
-import { Legend } from './interfaces/legends/legend.interface';
+import { Legend } from './interfaces/legend.interface';
+import { AuthGuard } from '@nestjs/passport';
+import { CreateLegendDto } from './dtos/create-legend.dto';
 
-@Controller()
+@Controller('api/v1/legends')
 export class LegendsController {
     constructor(
         private readonly appService: LegendsService
     ) {}
-
-    @Get()
-    getHello(): string {
-      return this.appService.getHello();
+    
+    @UseGuards(AuthGuard('jwt'))
+    @Post('/')
+    createLegend(
+      @Body() createLegendDto: CreateLegendDto
+    ): Promise<Legend>{
+      return this.appService.createLegend(createLegendDto);
     }
   
-    @Get('legends')
+    @Get('/')
     listLegend(): Promise<Legend[]> {
       return this.appService.listLegend();
     }
   
-    @Get('legends/:id')
+    @Get('/:id')
     listLegendForId(@Param('id') _id: string): Promise<Legend> {
       return this.appService.listLegendForId(_id);
     }

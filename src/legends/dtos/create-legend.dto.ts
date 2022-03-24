@@ -22,9 +22,9 @@ export class CreateLegendDto {
     @IsNotEmpty()
     melhorDoMundo: number;
 
-    @IsString()
-    @IsNotEmpty()
-    video: string;
+    // @IsString()
+    // @IsNotEmpty()
+    // video: string;
     
     @IsArray()
     @ArrayMinSize(1)

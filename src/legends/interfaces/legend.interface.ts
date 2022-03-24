@@ -6,7 +6,6 @@ export interface Legend extends Document {
     imagem: string;
     nacionalidade: string;
     melhorDoMundo: number;
-    // video: string;
     titulos: Array<Trophy>;
 }
 

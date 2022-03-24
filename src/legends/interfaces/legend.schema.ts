@@ -6,7 +6,6 @@ export const LegendSchema = new mongoose.Schema({
     imagem: { type: String },
     nacionalidade: { type: String },
     melhorDoMundo: { type: Number },
-    // video: { type: String },
     titulos: [
         { 
             nome: { type: String },
